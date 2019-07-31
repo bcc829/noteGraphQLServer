@@ -1,0 +1,25 @@
+scalar Long
+
+type Query {
+ memberBySeqId(seqId: Int!): Member
+ socialMemberInfoByMemberId(memberId: String) : [SocialMemberInfo]
+}
+
+type Member {
+ seqId : Int,
+ id: String!,
+ password: String!,
+ phoneNumber: String,
+ address: String,
+ nickname: String!,
+ email: String!,
+ regDate: String
+ socialMemberInfo: [SocialMemberInfo]
+}
+
+type SocialMemberInfo{
+ memberId: String!
+ providerType: String!
+ principal: String!
+ seqId: Int!
+}
