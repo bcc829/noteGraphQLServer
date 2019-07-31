@@ -1,0 +1,61 @@
+scalar Long
+
+type Query {
+ memberBySeqId(seqId: Int!): Member
+ socialMemberInfoByMemberId(memberId: String) : [SocialMemberInfo]
+
+ findAllPagingPosts(pageIndex: Int, limit: Int): PagenatedPosts!
+}
+
+type Member {
+ seqId : Int,
+ id: String!,
+ password: String!,
+ phoneNumber: String,
+ address: String,
+ nickname: String!,
+ email: String!,
+ regDate: String
+ socialMemberInfo: [SocialMemberInfo]
+}
+
+type SocialMemberInfo{
+ memberId: String!
+ providerType: String!
+ principal: String!
+ seqId: Int!
+}
+
+#val seqId : Int? = null,
+#var title : String,
+#var content : String,
+#var regDate : Date? = DateTime.now(DateTimeZone.forID(Constant.TIME_ZONE)).toDate(),
+#var updDate : Date? = null,
+#var delDate : Date? = null,
+#//        @ManyToOne(targetEntity = Member::class, fetch = FetchType.LAZY)
+#//        @JoinColumn(name="reg_id", referencedColumnName = "id")
+#//        @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
+#//        val member: Member? = null,
+#var regId : String?,
+#var readCount: Int? = null,
+#var deleteFlag : Boolean? = null
+
+
+type PageInfo {
+ totalCount: Int!
+ hasNext: Boolean
+ isLast: Boolean
+ isFirst: Boolean
+}
+
+type Post {
+ seqId: Int
+ title: String
+ content: String
+}
+
+type PagenatedPosts {
+ content : [Post]
+ pageInfo : PageInfo
+
+}
