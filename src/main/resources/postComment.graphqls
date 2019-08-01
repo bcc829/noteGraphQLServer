@@ -1,0 +1,29 @@
+extend type Query {
+    #게시글의 댓글목록
+    findPagingPostComments(
+        #조회할 게시글의 seq number
+        postSeqId: Int!
+        #페이지 인덱스
+        pageIndex: Int!,
+        #보여줄 페이지 제한 수
+        limit: Int!
+    ): PagenatedPostComments!
+}
+
+#게시글 댓글
+type PostComment{
+    #회원 닉네임
+    regId: String!
+    #내용
+    content: String!
+    #댓글의 답글
+    postComment: [PostComment]
+}
+
+#댓글 페이징 리스트
+type PagenatedPostComments{
+    #게시글 리스트
+    content : [PostComment]
+    #page 정보
+    pageInfo : PageInfo!
+}

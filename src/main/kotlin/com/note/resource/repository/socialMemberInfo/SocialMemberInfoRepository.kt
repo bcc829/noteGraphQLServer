@@ -1,6 +1,6 @@
 package com.note.resource.repository.socialMemberInfo
 
-import com.note.resource.domain.socialMemberInfo.SocialMemberInfo
+import com.note.resource.model.entity.SocialMemberInfo
 import org.springframework.data.jpa.repository.JpaRepository
 
 

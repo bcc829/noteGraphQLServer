@@ -36,9 +36,16 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation ("joda-time:joda-time:2.10.2")
 	implementation ("com.querydsl:querydsl-jpa:$queryDslVersion")
+
+	// graphql
+	//---------------------------------------------------------------------------------------------------
 	implementation("com.graphql-java-kickstart:graphql-java-tools:5.6.0")
 	implementation("com.graphql-java-kickstart:graphql-spring-boot-starter:5.10.0")
 	implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:5.10.0")
+	implementation("com.graphql-java-kickstart:voyager-spring-boot-starter:5.10.0")
+	implementation("com.zhokhov.graphql:graphql-datetime-spring-boot-starter:1.5.1")
+	//---------------------------------------------------------------------------------------------------
+
 	kapt ("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

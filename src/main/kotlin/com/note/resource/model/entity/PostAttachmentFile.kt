@@ -1,16 +1,20 @@
-package com.note.resource.domain.postAttachmentFile
+package com.note.resource.model.entity
 
 import com.querydsl.core.annotations.QueryEntity
 import com.note.resource.common.constant.Constant
 import org.hibernate.annotations.DynamicInsert
 import org.joda.time.DateTime
 import org.joda.time.DateTimeZone
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.util.*
 import javax.persistence.*
 
 @Entity
 @QueryEntity
 @DynamicInsert
+@EntityListeners(AuditingEntityListener::class)
 @Table(name = "post_attachment_file", schema = "public")
 data class PostAttachmentFile(
         @Id
@@ -24,9 +28,11 @@ data class PostAttachmentFile(
         val realFileName: String,
         val extFileName: String,
         var deleteFlag: Boolean? = false,
-        var regDate: Date ?= DateTime.now(DateTimeZone.forID(Constant.TIME_ZONE)).toDate(),
-        var updDate: Date ?= null,
-        var delDate: Date ?= null,
+        @CreatedDate
+        var regDate: Date?,
+        @LastModifiedDate
+        var updDate: Date?= null,
+//        var delDate: Date?= null,
         val filePath: String,
         val regId: String
 )

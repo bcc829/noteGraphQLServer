@@ -1,6 +1,6 @@
 package com.note.resource.repository.post
 
-import com.note.resource.domain.post.Post
+import com.note.resource.model.entity.Post
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

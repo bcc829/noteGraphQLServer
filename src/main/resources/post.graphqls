@@ -1,61 +1,58 @@
-scalar Long
+scalar Date
 
-type Query {
- memberBySeqId(seqId: Int!): Member
- socialMemberInfoByMemberId(memberId: String) : [SocialMemberInfo]
-
- findAllPagingPosts(pageIndex: Int, limit: Int): PagenatedPosts!
+extend type Query {
+ #게시글 전체 검색
+ findAllPagingPosts(
+  #페이지 인덱스
+  pageIndex: Int!,
+  #보여줄 데이터 제한 수
+  limit: Int!,
+ ): PagenatedPosts!
 }
 
-type Member {
- seqId : Int,
- id: String!,
- password: String!,
- phoneNumber: String,
- address: String,
- nickname: String!,
- email: String!,
- regDate: String
- socialMemberInfo: [SocialMemberInfo]
+type Mutation {
+    createPost(createPost: CreatePostInput!): Post!
 }
 
-type SocialMemberInfo{
- memberId: String!
- providerType: String!
- principal: String!
- seqId: Int!
-}
-
-#val seqId : Int? = null,
-#var title : String,
-#var content : String,
-#var regDate : Date? = DateTime.now(DateTimeZone.forID(Constant.TIME_ZONE)).toDate(),
-#var updDate : Date? = null,
-#var delDate : Date? = null,
-#//        @ManyToOne(targetEntity = Member::class, fetch = FetchType.LAZY)
-#//        @JoinColumn(name="reg_id", referencedColumnName = "id")
-#//        @JsonIgnoreProperties("hibernateLazyInitializer", "handler")
-#//        val member: Member? = null,
-#var regId : String?,
-#var readCount: Int? = null,
-#var deleteFlag : Boolean? = null
-
-
-type PageInfo {
- totalCount: Int!
- hasNext: Boolean
- isLast: Boolean
- isFirst: Boolean
-}
-
+#게시글
 type Post {
- seqId: Int
- title: String
- content: String
+ #게시글 seq id
+ seqId: Int!
+ #게시글 제목
+ title: String!
+ #게시글 내용
+ content: String!
+ #게시글 글쓴이(회원 닉네임)
+ regId: String!
+ #게시글 조회 수
+ readCount: Int!
+ #게시글 등록일
+ regDate: Date
+ #게시글 수정일
+ updDate: Date
+ #페이징 댓글 리스트
+ pagenatedPostComments(
+  #페이지 인덱스
+  pageIndex: Int!,
+  #보여줄 데이터 제한 수
+  limit: Int!): PagenatedPostComments
 }
 
+#게시글 페이징 리스트
 type PagenatedPosts {
+ #게시글 리스트
  content : [Post]
- pageInfo : PageInfo
-
+ #page 정보
+ pageInfo : PageInfo!
 }
+
+input CreatePostInput{
+ #게시글 제목
+ title: String!
+ #게시글 내용
+ content: String!
+ #게시글 글쓴이(회원 닉네임)
+ regId: String!
+}
+
+

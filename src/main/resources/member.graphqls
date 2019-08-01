@@ -1,0 +1,43 @@
+extend type Query {
+    #회원 seq number로 회원 조회
+    memberBySeqId(
+        #회원 seq number
+        seqId: Int!
+    ): Member
+    #회원 ID로 소셜 회원 정보 조회
+    socialMemberInfoByMemberId(
+        #회원 id
+        memberId: String
+    ) : [SocialMemberInfo]
+}
+
+#회원
+type Member {
+    #회원 seq number
+    seqId : Int
+    #회원 ID
+    id: String!
+    #패스워드
+    password: String!
+    #휴대전화 번호
+    phoneNumber: String
+    #주소
+    address: String
+    #닉네임
+    nickname: String!
+    #이메일
+    email: String!
+    #등록 일자
+    regDate: Date
+    socialMemberInfo: [SocialMemberInfo]
+}
+
+#소셜 회원 정보
+type SocialMemberInfo{
+    #회원 ID
+    memberId: String!
+    #소셜 계정 제공 사이트
+    providerType: String!
+    #소셜 계정 principal
+    principal: String!
+}

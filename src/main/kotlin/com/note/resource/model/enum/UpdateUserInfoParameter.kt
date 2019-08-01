@@ -1,4 +1,4 @@
-package com.note.resource.common.enum
+package com.note.resource.model.enum
 
 enum class UpdateUserInfoParameter {
     PASSWORD,

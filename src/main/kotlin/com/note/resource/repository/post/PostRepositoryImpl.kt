@@ -1,11 +1,12 @@
 package com.note.resource.repository.post
 
-import com.note.resource.common.enum.PostSearchType
-import com.note.resource.domain.post.Post
-import com.note.resource.domain.post.QPost
+import com.note.resource.model.enum.PostSearchType
+import com.note.resource.model.entity.Post
+import com.note.resource.model.entity.post.QPost
+import com.note.resource.model.vo.PageInfo
+import com.note.resource.model.vo.PagenatedObject
 import com.querydsl.jpa.JPQLQuery
 import com.querydsl.jpa.impl.JPAQuery
-import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
@@ -20,7 +21,7 @@ class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostR
         return query.from(qPost).where(qPost.regId.eq(regId)).limit(1).orderBy(qPost.regDate.desc()).fetchOne()
     }
 
-    override fun getPagingPostWithSearch(postSearchType: PostSearchType, value: String, pageable: Pageable): Page<Post> {
+    override fun getPagingPostWithSearch(postSearchType: PostSearchType, value: String, pageable: Pageable): PagenatedObject<Post> {
         val qPost = QPost.post
         var query:JPQLQuery<Post>
 
@@ -42,9 +43,24 @@ class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostR
             }
         }
 
-        val posts = querydsl?.applyPagination(pageable, query)?.fetch()
+        val posts = querydsl!!.applyPagination(pageable, query).fetch()
 
-        return PageImpl<Post>(posts!!, pageable, query.fetchCount())
+        val totalCount =  query.fetchCount()
+        val pageImpl =  PageImpl(posts, pageable, totalCount)
+
+        return PagenatedObject<Post>(
+                content = pageImpl.content,
+                pageInfo = PageInfo(
+                        totalCount = totalCount,
+                        isLast = pageImpl.isLast,
+                        isFirst = pageImpl.isFirst,
+                        hasNext = pageImpl.hasNext(),
+                        numberOfElements = pageImpl.numberOfElements
+
+                )
+
+        )
+//   return PageImpl<Post>(posts!!, pageable, query.fetchCount())
     }
 
 }

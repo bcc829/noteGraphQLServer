@@ -1,4 +1,4 @@
-package com.note.resource.domain.socialMemberInfo
+package com.note.resource.model.entity
 
 import javax.persistence.Entity
 import javax.persistence.Id

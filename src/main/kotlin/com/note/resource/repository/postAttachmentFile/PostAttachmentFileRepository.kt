@@ -1,6 +1,6 @@
 package com.note.resource.repository.postAttachmentFile
 
-import com.note.resource.domain.postAttachmentFile.PostAttachmentFile
+import com.note.resource.model.entity.PostAttachmentFile
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 

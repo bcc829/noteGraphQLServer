@@ -1,25 +1,21 @@
 scalar Long
 
 type Query {
- memberBySeqId(seqId: Int!): Member
- socialMemberInfoByMemberId(memberId: String) : [SocialMemberInfo]
 }
 
-type Member {
- seqId : Int,
- id: String!,
- password: String!,
- phoneNumber: String,
- address: String,
- nickname: String!,
- email: String!,
- regDate: String
- socialMemberInfo: [SocialMemberInfo]
+
+
+type PageInfo {
+ #총 페이지 개수
+ totalCount: Int!
+ #다음 페이지 유무
+ hasNext: Boolean
+ #마지막 페이지 여부
+ isLast: Boolean
+ #처음 페이지 여부
+ isFirst: Boolean
+ #해당 페이지에 조회된 개수
+ numberOfElements: Long
 }
 
-type SocialMemberInfo{
- memberId: String!
- providerType: String!
- principal: String!
- seqId: Int!
-}
+
