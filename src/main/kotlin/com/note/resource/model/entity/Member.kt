@@ -21,4 +21,8 @@ data class Member(
         var nickname: String,
         var email: String,
         val regDate: Date
-        )
+
+        ) {
+        @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.REMOVE, CascadeType.REFRESH], mappedBy = "member")
+        val socialMemberInfoList: List<SocialMemberInfo>? = null
+}

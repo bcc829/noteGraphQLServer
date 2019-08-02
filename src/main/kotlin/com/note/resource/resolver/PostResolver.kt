@@ -20,4 +20,9 @@ class PostResolver: GraphQLResolver<Post> {
 
         return postCommentRepository.getPostCommentWithPaging(post.seqId!!, pageRequest)
     }
+
+//    fun getComments(post: Post) : List<PostComment>? {
+//        return this.postCommentRepository.findAllByPostSeqId(post.seqId!!)
+//
+//    }
 }

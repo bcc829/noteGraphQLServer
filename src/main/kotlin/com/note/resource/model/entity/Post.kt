@@ -35,8 +35,9 @@ data class Post(
 //        val member: Member? = null,
         var regId : String,
         var readCount: Int? = 0,
-        var deleteFlag : Boolean? = false
-//        @OneToMany(targetEntity = PostComment::class, fetch = FetchType.EAGER)
+        var deleteFlag : Boolean? = false,
+
+        @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = [CascadeType.ALL] )
 //        @JoinColumn(name = "post_seq_id")
-//        val postCommentList: List<PostComment>? = null
+        val postCommentList: List<PostComment>? = null
 )

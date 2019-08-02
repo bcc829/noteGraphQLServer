@@ -16,8 +16,16 @@ type PostComment{
     regId: String!
     #내용
     content: String!
-    #댓글의 답글
-    postComment: [PostComment]
+    #등록일자
+    regDate: Date!
+    #수정일자
+    updDate: Date
+    #페이징된 댓글의 답글
+    pagenatedPostCommentComments(
+        #페이지 인덱스
+        pageIndex: Int!,
+        #보여줄 페이지 제한 수
+        limit: Int!): PagenatedPostComments
 }
 
 #댓글 페이징 리스트

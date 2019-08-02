@@ -37,6 +37,30 @@ class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositor
         )
     }
 
+    override fun getPostCommentCommentsWithPaging(commentSeqId: Int, pageable: Pageable): PagenatedObject<PostComment> {
+        val qPostComment = QPostComment.postComment
+        var query = JPAQuery<PostComment>(entityManager)
+
+        query = query.from(qPostComment).where(qPostComment.commentSeqId.eq(commentSeqId)).orderBy(qPostComment.regDate.asc()).fetchAll()
+
+        val postComments = querydsl?.applyPagination(pageable, query)?.fetch()
+
+        val pagePostComment = PageImpl<PostComment>(postComments!!, pageable, query.fetchCount())
+
+        val totalCount = query.fetchCount()
+
+        return PagenatedObject<PostComment>(
+                content = pagePostComment.content,
+                pageInfo = PageInfo(
+                        totalCount = totalCount,
+                        isLast = pagePostComment.isLast,
+                        isFirst = pagePostComment.isFirst,
+                        hasNext = pagePostComment.hasNext(),
+                        numberOfElements = pagePostComment.numberOfElements
+                )
+        )
+    }
+
     override fun getUserPostCommentWithPaging(regId: String, pageable: Pageable): Page<PostComment> {
 
         val qPostComment = QPostComment.postComment
