@@ -1,8 +1,6 @@
 package com.note.resource.config
 
 import com.note.resource.common.constant.Constant
-import org.joda.time.DateTime
-import org.joda.time.DateTimeZone
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary

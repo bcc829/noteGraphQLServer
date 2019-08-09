@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PostAttachmentFileRepository: JpaRepository<PostAttachmentFile, Number>{
-    fun findBySeqIdAndDeleteFlagIs(seqId: Int, deleteFlag: Boolean = false): PostAttachmentFile
+    fun findBySeqIdAndDeleteFlagIs(seqId: Long, deleteFlag: Boolean = false): PostAttachmentFile
 }

@@ -15,7 +15,7 @@ class PostCommentQueryResolver: GraphQLQueryResolver, GraphQLMutationResolver {
     @Autowired
     private lateinit var postCommentRepository: PostCommentRepository
 
-    fun findPagingPostComments(postSeqId: Int, pageIndex: Int, limit: Int): PagenatedObject<PostComment>?{
+    fun findPagingPostComments(postSeqId: Long, pageIndex: Int, limit: Int): PagenatedObject<PostComment>?{
         val pageRequest = PageRequest.of(pageIndex, limit)
 
         return postCommentRepository.getPostCommentWithPaging(postSeqId, pageRequest)

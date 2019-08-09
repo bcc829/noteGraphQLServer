@@ -1,8 +1,8 @@
 package com.note.resource.repository.post
 
-import com.note.resource.model.enum.PostSearchType
 import com.note.resource.model.entity.Post
-import com.note.resource.model.entity.post.QPost
+import com.note.resource.model.entity.QPost
+import com.note.resource.model.enum.PostSearchType
 import com.note.resource.model.vo.PageInfo
 import com.note.resource.model.vo.PagenatedObject
 import com.querydsl.jpa.JPQLQuery

@@ -6,8 +6,10 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PostCommentRepository : JpaRepository<PostComment, Number>, PostCommentRepositoryCustom{
-    fun findBySeqId(seqId: Int): PostComment
-    fun findAllByCommentSeqId(seqId: Int): List<PostComment>?
+    fun findBySeqId(seqId: Long): PostComment
+    fun findAllByCommentSeqId(seqId: Long): List<PostComment>?
 
-    fun findAllByPostSeqId(seaId: Int) : List<PostComment>?
+
+
+    fun findAllByPostSeqId(seaId: Long) : List<PostComment>?
 }

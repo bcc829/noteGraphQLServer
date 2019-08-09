@@ -7,7 +7,7 @@ import org.springframework.data.domain.Pageable
 
 
 interface PostCommentRepositoryCustom  {
-    fun getPostCommentWithPaging(postSeqId: Int, pageable: Pageable): PagenatedObject<PostComment>
+    fun getPostCommentWithPaging(postSeqId: Long, pageable: Pageable): PagenatedObject<PostComment>
     fun getUserPostCommentWithPaging(regId: String, pageable: Pageable): Page<PostComment>
-    fun getPostCommentCommentsWithPaging(commentSeqId: Int, pageable: Pageable): PagenatedObject<PostComment>
+    fun getPostCommentCommentsWithPaging(commentSeqId: Long, pageable: Pageable): PagenatedObject<PostComment>
 }

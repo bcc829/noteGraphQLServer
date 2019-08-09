@@ -2,7 +2,7 @@ extend type Query {
     #게시글의 댓글목록
     findPagingPostComments(
         #조회할 게시글의 seq number
-        postSeqId: Int!
+        postSeqId: Long!
         #페이지 인덱스
         pageIndex: Int!,
         #보여줄 페이지 제한 수

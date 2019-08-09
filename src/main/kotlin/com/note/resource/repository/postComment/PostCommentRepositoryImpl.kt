@@ -1,8 +1,7 @@
 package com.note.resource.repository.postComment
 
-import com.note.resource.model.entity.Post
 import com.note.resource.model.entity.PostComment
-import com.note.resource.model.entity.postComment.QPostComment
+import com.note.resource.model.entity.QPostComment
 import com.note.resource.model.vo.PageInfo
 import com.note.resource.model.vo.PagenatedObject
 import com.querydsl.jpa.impl.JPAQuery
@@ -13,7 +12,7 @@ import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 
 class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositorySupport(PostCommentRepositoryImpl::class.java) {
-    override fun getPostCommentWithPaging(postSeqId: Int, pageable: Pageable): PagenatedObject<PostComment> {
+    override fun getPostCommentWithPaging(postSeqId: Long, pageable: Pageable): PagenatedObject<PostComment> {
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)
 
@@ -37,7 +36,7 @@ class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositor
         )
     }
 
-    override fun getPostCommentCommentsWithPaging(commentSeqId: Int, pageable: Pageable): PagenatedObject<PostComment> {
+    override fun getPostCommentCommentsWithPaging(commentSeqId: Long, pageable: Pageable): PagenatedObject<PostComment> {
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)
 
