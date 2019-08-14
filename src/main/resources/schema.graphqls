@@ -4,7 +4,9 @@ scalar Date
 type Query {
 }
 
+type Mutation {
 
+}
 
 type PageInfo {
  #총 페이지 개수

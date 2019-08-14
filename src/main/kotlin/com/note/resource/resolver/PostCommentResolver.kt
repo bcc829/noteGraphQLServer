@@ -1,9 +1,9 @@
 package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLResolver
-import com.note.resource.model.entity.Member
 import com.note.resource.model.entity.Post
 import com.note.resource.model.entity.PostComment
+import com.note.resource.model.vo.CreatePostCommentInput
 import com.note.resource.model.vo.PagenatedObject
 import com.note.resource.repository.member.MemberRepository
 import com.note.resource.repository.post.PostRepository
@@ -14,11 +14,9 @@ import org.springframework.stereotype.Component
 
 @Component
 class PostCommentResolver: GraphQLResolver<PostComment> {
-    @Autowired
-    private lateinit var postCommentRepository: PostCommentRepository
 
     @Autowired
-    private lateinit var memberRepository: MemberRepository
+    private lateinit var postCommentRepository: PostCommentRepository
 
 //    fun getPostComment(postComment: PostComment): List<PostComment>? {
 //        return postCommentRepository.findAllByCommentSeqId(postComment.seqId!!)
@@ -29,4 +27,6 @@ class PostCommentResolver: GraphQLResolver<PostComment> {
 
         return postCommentRepository.getPostCommentCommentsWithPaging(postComment.seqId!!, pageRequest)
     }
+
+
 }

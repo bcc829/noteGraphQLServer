@@ -10,8 +10,9 @@ extend type Query {
  ): PagenatedPosts!
 }
 
-type Mutation {
-    createPost(createPost: CreatePostInput!): Post!
+extend type Mutation {
+ createPost(createPost: CreatePostInput!): Post!
+ updatePost(updatePost: UpdatePostInput!): Post!
 }
 
 #게시글
@@ -46,13 +47,24 @@ type PagenatedPosts {
  pageInfo : PageInfo!
 }
 
+#게시글 추가 Input
 input CreatePostInput{
+ #게시글 제목
+ title: String
+ #게시글 내용
+ content: String
+ #회원 seqId
+ memberSeqId: Long!
+}
+
+#게시글 수정 Input
+input UpdatePostInput{
  #게시글 제목
  title: String!
  #게시글 내용
  content: String!
- #게시글 글쓴이(회원 닉네임)
- regId: String!
+ #회원 seqId
+ memberSeqId: Long!
+ #게시글 seqId
+ postSeqId: Long!
 }
-
-

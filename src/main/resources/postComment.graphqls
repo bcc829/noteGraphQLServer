@@ -10,6 +10,10 @@ extend type Query {
     ): PagenatedPostComments!
 }
 
+extend type Mutation {
+    createPostComment(createPostComment: CreatePostCommentInput!): PostComment!
+}
+
 #게시글 댓글
 type PostComment{
     #내용
@@ -34,4 +38,16 @@ type PagenatedPostComments{
     content : [PostComment]
     #page 정보
     pageInfo : PageInfo!
+}
+
+#댓글 추가 Input
+input CreatePostCommentInput{
+    #작성 내용
+    content: String!,
+    #게시글 seqId
+    postSeqId: Long!,
+    #작성자 seqId
+    memberSeqId: Long!
+    #댓글 seqId (댓글의 답글인 경우)
+    commentSeqId: Long
 }

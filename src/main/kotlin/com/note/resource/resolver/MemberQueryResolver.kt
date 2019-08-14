@@ -12,7 +12,7 @@ class MemberQueryResolver : GraphQLQueryResolver {
     @Autowired
     private lateinit var memberRepository: MemberRepository
 
-    fun memberBySeqId(seqId: Long): Member? {
+    fun getMemberBySeqId(seqId: Long): Member? {
         return memberRepository.findBySeqIdEquals(seqId)
     }
 

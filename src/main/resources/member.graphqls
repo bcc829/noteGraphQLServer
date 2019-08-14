@@ -1,6 +1,6 @@
 extend type Query {
     #회원 seq number로 회원 조회
-    memberBySeqId(
+    getMemberBySeqId(
         #회원 seq number
         seqId: Long!
     ): Member
