@@ -18,7 +18,7 @@ class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostR
         val qPost = QPost.post
         val query = JPAQuery<Post>(entityManager)
 
-        return query.from(qPost).where(qPost.regId.eq(regId)).limit(1).orderBy(qPost.regDate.desc()).fetchOne()
+        return query.from(qPost).where(qPost.member.nickname.eq(regId)).limit(1).orderBy(qPost.regDate.desc()).fetchOne()
     }
 
     override fun getPagingPostWithSearch(postSearchType: PostSearchType, value: String, pageable: Pageable): PagenatedObject<Post> {
@@ -33,7 +33,7 @@ class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostR
                 query = from(qPost).where(qPost.deleteFlag.eq(false).and(qPost.content.likeIgnoreCase("%$value%"))).orderBy(qPost.regDate.desc()).fetchAll()
             }
             PostSearchType.REG_ID -> {
-                query = from(qPost).where(qPost.deleteFlag.eq(false).and(qPost.regId.likeIgnoreCase("%$value%"))).orderBy(qPost.regDate.desc()).fetchAll()
+                query = from(qPost).where(qPost.deleteFlag.eq(false).and(qPost.member.nickname.likeIgnoreCase("%$value%"))).orderBy(qPost.regDate.desc()).fetchAll()
             }
             PostSearchType.TITLE -> {
                 query = from(qPost).where(qPost.deleteFlag.eq(false).and(qPost.title.likeIgnoreCase("%$value%"))).orderBy(qPost.regDate.desc()).fetchAll()

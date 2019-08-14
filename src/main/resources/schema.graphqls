@@ -1,4 +1,5 @@
 scalar Long
+scalar Date
 
 type Query {
 }

@@ -1,23 +1,21 @@
 package com.note.resource.model.entity
 
 
+import org.springframework.data.annotation.CreatedDate
+import org.springframework.data.annotation.LastModifiedDate
+import org.springframework.data.jpa.domain.support.AuditingEntityListener
 import java.io.Serializable
-import javax.persistence.GeneratedValue
-import javax.persistence.GenerationType
-import javax.persistence.Id
-import javax.persistence.MappedSuperclass
+import java.util.*
+import javax.persistence.*
 
 @MappedSuperclass
-open class BaseEntity  : Serializable {
+@EntityListeners(AuditingEntityListener::class)
+open class BaseEntity: Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    var id: Int? = null
+    @CreatedDate
+    var regDate: Date? = null
 
-    val isNew: Boolean
-        get() = this.id == null
-
-
-
+    @LastModifiedDate
+    var updDate: Date? = null
 
 }

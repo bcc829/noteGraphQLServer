@@ -22,14 +22,14 @@ type Post {
  title: String!
  #게시글 내용
  content: String!
- #게시글 글쓴이(회원 닉네임)
- regId: String!
  #게시글 조회 수
  readCount: Int!
  #게시글 등록일
  regDate: Date
  #게시글 수정일
  updDate: Date
+ #등록한 사용자 정보
+ member: Member
  #페이징 댓글 리스트
  pagenatedPostComments(
   #페이지 인덱스

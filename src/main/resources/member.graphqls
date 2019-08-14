@@ -2,42 +2,37 @@ extend type Query {
     #회원 seq number로 회원 조회
     memberBySeqId(
         #회원 seq number
-        seqId: Int!
+        seqId: Long!
     ): Member
-    #회원 ID로 소셜 회원 정보 조회
-    socialMemberInfoByMemberId(
-        #회원 id
-        memberId: String
-    ) : [SocialMemberInfo]
 }
 
 #회원
 type Member {
     #회원 seq number
-    seqId : Int
+    seqId : Long
     #회원 ID
-    id: String!
-    #패스워드
-    password: String!
+    id: ID
     #휴대전화 번호
     phoneNumber: String
     #주소
     address: String
     #닉네임
-    nickname: String!
+    nickname: String
     #이메일
-    email: String!
+    email: String
     #등록 일자
     regDate: Date
-    socialMemberInfo: [SocialMemberInfo]
+    #수정 일자
+    updDate: Date
+    #Social 회원 정보 리스트
+    socialMemberInfoList: [SocialMemberInfo]
+
 }
 
 #소셜 회원 정보
 type SocialMemberInfo{
-    #회원 ID
-    memberId: String!
     #소셜 계정 제공 사이트
-    providerType: String!
+    providerType: String
     #소셜 계정 principal
-    principal: String!
+    principal: String
 }

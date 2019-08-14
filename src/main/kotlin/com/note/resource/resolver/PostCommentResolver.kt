@@ -1,9 +1,11 @@
 package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLResolver
+import com.note.resource.model.entity.Member
 import com.note.resource.model.entity.Post
 import com.note.resource.model.entity.PostComment
 import com.note.resource.model.vo.PagenatedObject
+import com.note.resource.repository.member.MemberRepository
 import com.note.resource.repository.post.PostRepository
 import com.note.resource.repository.postComment.PostCommentRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -16,7 +18,7 @@ class PostCommentResolver: GraphQLResolver<PostComment> {
     private lateinit var postCommentRepository: PostCommentRepository
 
     @Autowired
-    private lateinit var postRepository: PostRepository
+    private lateinit var memberRepository: MemberRepository
 
 //    fun getPostComment(postComment: PostComment): List<PostComment>? {
 //        return postCommentRepository.findAllByCommentSeqId(postComment.seqId!!)

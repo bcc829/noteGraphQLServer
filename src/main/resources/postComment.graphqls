@@ -12,14 +12,14 @@ extend type Query {
 
 #게시글 댓글
 type PostComment{
-    #회원 닉네임
-    regId: String!
     #내용
     content: String!
     #등록일자
     regDate: Date!
     #수정일자
     updDate: Date
+    #작성자
+    member: Member
     #페이징된 댓글의 답글
     pagenatedPostCommentComments(
         #페이지 인덱스

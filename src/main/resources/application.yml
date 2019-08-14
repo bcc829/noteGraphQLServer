@@ -9,6 +9,10 @@
 #        temp:
 #          use_jdbc_metadata_defaults: false
 
+server:
+  port: 8081
+
+
 
 spring:
   datasource:
@@ -22,14 +26,11 @@ spring:
     username: keesun
     password: pass
     initialize: false
-  h2:
-    console:
-      enabled: true
   jpa:
-    open-in-view: false
     show-sql: true
+    open-in-view: false
     hibernate:
-      ddl-auto: 'create-drop'
+      ddl-auto: create
       temp:
         use_jdbc_metadata_defaults: false
 

@@ -16,7 +16,7 @@ class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositor
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)
 
-        query = query.from(qPostComment).where(qPostComment.postSeqId.eq(postSeqId)).orderBy(qPostComment.regDate.asc()).fetchAll()
+        query = query.from(qPostComment).where(qPostComment.post.seqId.eq(postSeqId)).orderBy(qPostComment.regDate.asc()).fetchAll()
 
         val postComments = querydsl?.applyPagination(pageable, query)?.fetch()
 
@@ -40,7 +40,7 @@ class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositor
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)
 
-        query = query.from(qPostComment).where(qPostComment.commentSeqId.eq(commentSeqId)).orderBy(qPostComment.regDate.asc()).fetchAll()
+        query = query.from(qPostComment).where(qPostComment.rootPostComment.seqId.eq(commentSeqId)).orderBy(qPostComment.regDate.asc()).fetchAll()
 
         val postComments = querydsl?.applyPagination(pageable, query)?.fetch()
 
@@ -65,7 +65,7 @@ class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositor
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)
 
-        query = query.from(qPostComment).where(qPostComment.regId.eq(regId)).orderBy(qPostComment.regDate.asc()).fetchAll()
+        query = query.from(qPostComment).where(qPostComment.member.nickname.eq(regId)).orderBy(qPostComment.regDate.asc()).fetchAll()
 
         val postComments = querydsl?.applyPagination(pageable, query)?.fetch()
 

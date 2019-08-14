@@ -13,8 +13,8 @@ class MemberResolver: GraphQLResolver<Member> {
     @Autowired
     private lateinit var socialMemberInfoRepository: SocialMemberInfoRepository
 
-    fun getSocialMemberInfo(member: Member): List<SocialMemberInfo>? {
-        return socialMemberInfoRepository.findByMemberId(member.id)
+    fun socialMemberInfoList(member: Member): List<SocialMemberInfo>? {
+        return socialMemberInfoRepository.findByMemberSeqId(member.seqId!!)
     }
 
 }

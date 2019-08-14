@@ -3,15 +3,16 @@ package com.note.resource
 import com.note.resource.model.entity.Member
 import com.note.resource.model.entity.Post
 import com.note.resource.model.entity.PostComment
+import com.note.resource.model.entity.SocialMemberInfo
 import com.note.resource.repository.member.MemberRepository
 import com.note.resource.repository.post.PostRepository
 import com.note.resource.repository.postComment.PostCommentRepository
+import com.note.resource.repository.socialMemberInfo.SocialMemberInfoRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.ApplicationArguments
 import org.springframework.boot.ApplicationRunner
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
-import java.util.*
 
 @Component
 @Order(1)
@@ -21,10 +22,13 @@ class AppRunner : ApplicationRunner {
     lateinit var memberRepository: MemberRepository
 
     @Autowired
+    lateinit var socialMemberInfoRepository: SocialMemberInfoRepository
+
+    @Autowired
     lateinit var postRepository: PostRepository
 
-//    @Autowired
-//    lateinit var postCommentRepository: PostCommentRepository
+    @Autowired
+    lateinit var postCommentRepository: PostCommentRepository
 
     override fun run(args: ApplicationArguments?) {
 
@@ -37,57 +41,58 @@ class AppRunner : ApplicationRunner {
                 address = ""
         )
 
-        member = memberRepository.save(member)
+        var socialMemberInfo1 = SocialMemberInfo(
+                principal = "principal",
+                providerType = "FACEBOOK"
+        )
 
+        socialMemberInfo1.member = member
+
+        var socialMemberInfo2 = SocialMemberInfo(
+                principal = "principal",
+                providerType = "GOOGLE"
+        )
+
+        socialMemberInfo2.member = member
 
         var post : Post = Post(
                 content = "content",
-                title = "title",
-                regId = "정2"
+                title = "title"
         )
         post.member = member
 
         var comment1 = PostComment(
-                content = "content1",
-                regDate = Date(),
-                regId = "정2"
+                content = "content1"
         )
 
-//        comment1.post = post
+        comment1.post = post
+        comment1.member = member
 
         var comment2 = PostComment(
-                content = "content2",
-                regDate = Date(),
-                regId = "정2"
+                content = "content2"
         )
 
-//        comment2.post = post
+        comment2.post = post
+        comment2.member = member
+
 
         var comment3 = PostComment(
-                content = "content3",
-                regDate = Date(),
-                regId = "정2"
+                content = "content3"
         )
 
-//        comment3.post = post
+        comment3.rootPostComment = comment2
+        comment3.member = member
 
-//        var commentList : MutableList<PostComment> = mutableListOf(comment1, comment2, comment3)
-//
-//        post.postCommentList = commentList
+        memberRepository.save(member)
 
-        post.addComment(comment1)
-        post.addComment(comment2)
-        post.addComment(comment3)
+        socialMemberInfoRepository.save(socialMemberInfo1)
+        socialMemberInfoRepository.save(socialMemberInfo2)
+
         postRepository.save(post)
 
-
-//
-//        postCommentRepository.save(comment1)
-//        postCommentRepository.save(comment2)
-//        postCommentRepository.save(comment3)
-
-
-
+        postCommentRepository.save(comment1)
+        postCommentRepository.save(comment2)
+        postCommentRepository.save(comment3)
 
     }
 }
