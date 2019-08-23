@@ -7,7 +7,7 @@ plugins {
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
 	kotlin("plugin.jpa") version kotlinVersion
-//	kotlin("plugin.allopen") version kotlinVersion
+	kotlin("plugin.allopen") version kotlinVersion
 	kotlin("kapt") version kotlinVersion
 	id("idea")
 }
@@ -18,9 +18,9 @@ java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 val queryDslVersion = "4.1.3"
 
-//allOpen {
-//	annotation ("javax.persistence.Entity")
-//}
+allOpen {
+	annotation ("javax.persistence.Entity")
+}
 
 repositories {
 	mavenCentral()
@@ -28,13 +28,19 @@ repositories {
 
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-//	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-//	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+	//	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
+	//	implementation("org.springframework.boot:spring-boot-starter-security")
+
+	//QueryDSL
+	//---------------------------------------------------------------------------------------------------
 	implementation ("com.querydsl:querydsl-jpa:$queryDslVersion")
+	kapt ("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
+	//---------------------------------------------------------------------------------------------------
 
 	// graphql
 	//---------------------------------------------------------------------------------------------------
@@ -45,7 +51,6 @@ dependencies {
 	implementation("com.zhokhov.graphql:graphql-datetime-spring-boot-starter:1.5.1")
 	//---------------------------------------------------------------------------------------------------
 
-	kapt ("com.querydsl:querydsl-apt:$queryDslVersion:jpa")
 //	runtimeOnly("com.h2database:h2:1.4.199")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
