@@ -12,6 +12,7 @@ extend type Query {
 
 extend type Mutation {
     createPostComment(createPostComment: CreatePostCommentInput!): PostComment!
+    updatePostComment(updatePostComment: UpdatePostCommentInput!): PostComment!
 }
 
 #게시글 댓글
@@ -50,4 +51,14 @@ input CreatePostCommentInput{
     memberSeqId: Long!
     #댓글 seqId (댓글의 답글인 경우)
     commentSeqId: Long
+}
+
+#댓글 수정 Input
+input UpdatePostCommentInput{
+    #작성 내용
+    content: String!,
+    #댓글 seqId
+    seqId: Long!,
+    #작성자 seqId
+    memberSeqId: Long!
 }

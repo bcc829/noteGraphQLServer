@@ -10,7 +10,7 @@
 #          use_jdbc_metadata_defaults: false
 
 server:
-  port: 8081
+  port: 8080
 
 
 
@@ -37,6 +37,9 @@ spring:
 logging:
   level:
     root: info
+  path: C:\log
+  level.org.hibernate:
+    SQL: DEBUG
 
 graphql:
   tools:

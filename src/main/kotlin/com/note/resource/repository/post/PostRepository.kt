@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository
 
 @Repository
 interface PostRepository : JpaRepository<Post, Number>, PostRepositoryCustom {
-    fun findBySeqId(seqId: Long): Post
+    fun findBySeqId(seqId: Long): Post?
     fun findByTitle(title: String): Post?
 }

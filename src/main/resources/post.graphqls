@@ -60,9 +60,9 @@ input CreatePostInput{
 #게시글 수정 Input
 input UpdatePostInput{
  #게시글 제목
- title: String!
+ title: String
  #게시글 내용
- content: String!
+ content: String
  #회원 seqId
  memberSeqId: Long!
  #게시글 seqId

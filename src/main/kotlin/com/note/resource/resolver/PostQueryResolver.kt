@@ -2,7 +2,9 @@ package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
+import com.note.resource.exception.CustomException
 import com.note.resource.model.entity.Post
+import com.note.resource.model.enum.NoteErrorCode
 import com.note.resource.model.enum.PostSearchType
 import com.note.resource.model.vo.CreatePostInput
 import com.note.resource.model.vo.PagenatedObject
@@ -33,6 +35,7 @@ class PostQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
         val post = Post(title = createPost.title, content = createPost.content)
 
         val member = memberRepository.findBySeqIdEquals(createPost.seqId)
+                ?: throw CustomException(NoteErrorCode.UNAUTHORIZED_USER)
 
         post.member = member
 
@@ -40,14 +43,26 @@ class PostQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
     }
 
     fun updatePost(updatePost: UpdatePostInput): Post {
-        //TODO 글을 작성한 회원이 맞는지 확인하고 틀리면 : unAuthorizedException 발생하게 개발 해야 함
         val post = postRepository.findBySeqId(updatePost.postSeqId)
+                ?: throw CustomException(NoteErrorCode.DATA_NOT_FOUND)
 
-        updatePost.content?.let { post.content = it }
+        return when (post.member?.seqId == updatePost.memberSeqId) {
+            true -> {
+                if (updatePost.content != null && updatePost.content.trim() != "") {
+                    post.content = updatePost.content
+                }
 
-        updatePost.title?.let { post.title = it }
+                if (updatePost.title != null && updatePost.title.trim() != "") {
+                    post.title = updatePost.title
+                }
+                postRepository.save(post)
+            }
+            false -> {
+                throw CustomException(NoteErrorCode.UNAUTHORIZED_USER)
+            }
+        }
 
-        return postRepository.save(post)
+
     }
 
 }
