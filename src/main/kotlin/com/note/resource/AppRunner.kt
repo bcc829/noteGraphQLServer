@@ -46,14 +46,14 @@ class AppRunner : ApplicationRunner {
                 providerType = "FACEBOOK"
         )
 
-        socialMemberInfo1.member = member
+//        socialMemberInfo1.member = member
 
         var socialMemberInfo2 = SocialMemberInfo(
                 principal = "principal",
                 providerType = "GOOGLE"
         )
 
-        socialMemberInfo2.member = member
+//        socialMemberInfo2.member = member
 
         var post : Post = Post(
                 content = "content",
@@ -83,10 +83,14 @@ class AppRunner : ApplicationRunner {
         comment3.rootPostComment = comment2
         comment3.member = member
 
+
+        member.addSocialMemberInfo(socialMemberInfo1)
+        member.addSocialMemberInfo(socialMemberInfo2)
+
         memberRepository.save(member)
 
-        socialMemberInfoRepository.save(socialMemberInfo1)
-        socialMemberInfoRepository.save(socialMemberInfo2)
+//        socialMemberInfoRepository.save(socialMemberInfo1)
+//        socialMemberInfoRepository.save(socialMemberInfo2)
 
         postRepository.save(post)
 

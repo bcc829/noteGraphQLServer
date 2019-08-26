@@ -11,7 +11,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 
-class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositorySupport(PostCommentRepositoryImpl::class.java) {
+class PostCommentRepositoryImpl : PostCommentRepositoryCustom, QuerydslRepositorySupport(PostComment::class.java) {
     override fun getPostCommentWithPaging(postSeqId: Long, pageable: Pageable): PagenatedObject<PostComment> {
         val qPostComment = QPostComment.postComment
         var query = JPAQuery<PostComment>(entityManager)

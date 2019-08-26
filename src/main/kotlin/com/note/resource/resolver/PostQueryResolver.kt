@@ -2,6 +2,7 @@ package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
+import com.note.resource.common.logger.Log
 import com.note.resource.exception.CustomException
 import com.note.resource.model.entity.Post
 import com.note.resource.model.enum.NoteErrorCode
@@ -24,14 +25,22 @@ class PostQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
     @Autowired
     lateinit var memberRepository: MemberRepository
 
+    companion object: Log()
+
     fun findAllPagingPosts(pageIndex: Int, limit: Int): PagenatedObject<Post>? {
+        logger.info("----------------PostQueryResolver: findAllPagingPosts()--------------------")
+        logger.info("input: pageIndex - $pageIndex,  limit - $limit")
+
         val pageRequest = PageRequest.of(pageIndex, limit)
 
-        return postRepository.getPagingPostWithSearch(PostSearchType.ALL, "", pageRequest)
+        return postRepository.getPagingPostWithSearch(postSearchType = PostSearchType.ALL, pageable = pageRequest)
     }
 
 
     fun createPost(createPost: CreatePostInput): Post {
+        logger.info("----------------PostQueryResolver: createPost()--------------------")
+        logger.info("input: ${createPost.toString()}")
+
         val post = Post(title = createPost.title, content = createPost.content)
 
         val member = memberRepository.findBySeqIdEquals(createPost.seqId)
@@ -43,6 +52,9 @@ class PostQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
     }
 
     fun updatePost(updatePost: UpdatePostInput): Post {
+        logger.info("----------------PostQueryResolver: updatePost()--------------------")
+        logger.info("input: ${updatePost.toString()}")
+
         val post = postRepository.findBySeqId(updatePost.postSeqId)
                 ?: throw CustomException(NoteErrorCode.DATA_NOT_FOUND)
 

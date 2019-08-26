@@ -2,6 +2,7 @@ package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLMutationResolver
 import com.coxautodev.graphql.tools.GraphQLQueryResolver
+import com.note.resource.common.logger.Log
 import com.note.resource.exception.CustomException
 import com.note.resource.model.entity.PostComment
 import com.note.resource.model.enum.NoteErrorCode
@@ -27,13 +28,19 @@ class PostCommentQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
     @Autowired
     private lateinit var memberRepository: MemberRepository
 
+    companion object: Log()
+
     fun findPagingPostComments(postSeqId: Long, pageIndex: Int, limit: Int): PagenatedObject<PostComment>? {
+        logger.info("----------------PostCommentQueryResolver: findPagingPostComments()--------------------")
+
         val pageRequest = PageRequest.of(pageIndex, limit)
 
         return postCommentRepository.getPostCommentWithPaging(postSeqId, pageRequest)
     }
 
     fun createPostComment(createPostComment: CreatePostCommentInput): PostComment? {
+        logger.info("----------------PostCommentQueryResolver: CreatePostCommentInput()--------------------")
+        logger.info("input: ${createPostComment.toString()}")
 
         val postComment = PostComment(content = createPostComment.content)
 
@@ -58,6 +65,9 @@ class PostCommentQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
     }
 
     fun updatePostComment(updatePostComment: UpdatePostCommentInput): PostComment? {
+        logger.info("----------------PostCommentQueryResolver: updatePostComment()--------------------")
+        logger.info("input: ${updatePostComment.toString()}")
+
         val postComment = postCommentRepository.findById(updatePostComment.seqId).get()
 
         return when (postComment.member?.seqId == updatePostComment.memberSeqId) {

@@ -20,6 +20,7 @@ val queryDslVersion = "4.1.3"
 
 allOpen {
 	annotation ("javax.persistence.Entity")
+	annotation ("javax.persistence.MappedSuperclass")
 }
 
 repositories {

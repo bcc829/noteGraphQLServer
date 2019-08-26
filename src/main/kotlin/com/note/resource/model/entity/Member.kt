@@ -26,11 +26,26 @@ data class Member(
         val email: String,
 
         @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "member")
-        var socialMemberInfoList: MutableList<SocialMemberInfo>? = mutableListOf(),
+        var socialMemberInfoList: MutableList<SocialMemberInfo> = mutableListOf(),
 
         @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "member")
-        var postList: MutableList<Post>? = mutableListOf(),
+        var postList: MutableList<Post> = mutableListOf(),
 
         @OneToMany(fetch = FetchType.LAZY, cascade = [CascadeType.ALL], mappedBy = "member")
-        var postCommentList: MutableList<PostComment>? = mutableListOf()
-) : BaseEntity()
+        var postCommentList: MutableList<PostComment> = mutableListOf()
+) : BaseEntity() {
+    fun addSocialMemberInfo(socialMemberInfo: SocialMemberInfo) {
+        socialMemberInfo.member = this
+        socialMemberInfoList.add(socialMemberInfo)
+    }
+
+    fun addPost(post: Post) {
+        post.member = this
+        postList.add(post)
+    }
+
+    fun addPostComment(postComment: PostComment) {
+        postComment.member = this
+        postCommentList.add(postComment)
+    }
+}

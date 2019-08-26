@@ -12,7 +12,7 @@ import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport
 
 
-class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostRepositoryImpl::class.java) {
+class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(Post::class.java) {
 
     override fun getPostByUserIdLimitOneOrderByRegDateDesc(regId: String): Post? {
         val qPost = QPost.post
@@ -21,7 +21,7 @@ class PostRepositoryImpl : PostRepositoryCustom, QuerydslRepositorySupport(PostR
         return query.from(qPost).where(qPost.member.nickname.eq(regId)).limit(1).orderBy(qPost.regDate.desc()).fetchOne()
     }
 
-    override fun getPagingPostWithSearch(postSearchType: PostSearchType, value: String, pageable: Pageable): PagenatedObject<Post> {
+    override fun getPagingPostWithSearch(postSearchType: PostSearchType, value: String?, pageable: Pageable): PagenatedObject<Post> {
         val qPost = QPost.post
         var query:JPQLQuery<Post>
 

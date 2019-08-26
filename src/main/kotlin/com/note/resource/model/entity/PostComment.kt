@@ -17,7 +17,7 @@ data class PostComment(
         var content: String? = null,
 
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "rootPostComment", cascade = [CascadeType.ALL])
-        var commentsList: MutableList<PostComment>? = mutableListOf(),
+        var commentsList: MutableList<PostComment> = mutableListOf(),
 
         @ManyToOne(fetch = FetchType.LAZY)
         var member: Member? = null,
@@ -30,4 +30,9 @@ data class PostComment(
         @JoinColumn(name = "comment_seqId")
         var rootPostComment: PostComment? = null
 
-): BaseEntity()
+) : BaseEntity() {
+    fun addComment(postComment: PostComment) {
+        postComment.rootPostComment = this
+        commentsList.add(postComment)
+    }
+}

@@ -1,6 +1,8 @@
 package com.note.resource.resolver
 
 import com.coxautodev.graphql.tools.GraphQLResolver
+import com.note.resource.common.logger.Log
+import com.note.resource.model.entity.Member
 import com.note.resource.model.entity.Post
 import com.note.resource.model.entity.PostComment
 import com.note.resource.model.vo.CreatePostCommentInput
@@ -18,15 +20,23 @@ class PostCommentResolver: GraphQLResolver<PostComment> {
     @Autowired
     private lateinit var postCommentRepository: PostCommentRepository
 
-//    fun getPostComment(postComment: PostComment): List<PostComment>? {
-//        return postCommentRepository.findAllByCommentSeqId(postComment.seqId!!)
-//    }
+    @Autowired
+    private lateinit var memberRepository: MemberRepository
+
+    companion object : Log()
+
 
     fun getPagenatedPostCommentComments(postComment: PostComment, pageIndex: Int, limit: Int): PagenatedObject<PostComment>{
-        val pageRequest = PageRequest.of(pageIndex, limit)
+        logger.info("----------------PostCommentResolver: getPagenatedPostCommentComments()--------------------")
+        logger.info("input: pageIndex - $pageIndex,  limit - $limit")
 
+        val pageRequest = PageRequest.of(pageIndex, limit)
         return postCommentRepository.getPostCommentCommentsWithPaging(postComment.seqId!!, pageRequest)
     }
 
+    fun getMember(postComment: PostComment): Member? {
+        logger.info("----------------PostCommentResolver: getMember()--------------------")
+        return memberRepository.findBySeqIdEquals(postComment.member?.seqId!!)
+    }
 
 }

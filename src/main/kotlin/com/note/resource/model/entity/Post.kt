@@ -28,4 +28,14 @@ data class Post(
         @OneToMany(fetch = FetchType.LAZY, mappedBy = "post", cascade = [CascadeType.ALL])
         var postAttachmentFileList: MutableList<PostAttachmentFile> = mutableListOf()
 
-) : BaseEntity()
+) : BaseEntity() {
+    fun addPostComment(postComment: PostComment) {
+        postComment.post = this
+        postCommentList.add(postComment)
+    }
+
+    fun addPostAttachment(postAttachmentFile: PostAttachmentFile) {
+        postAttachmentFile.post = this
+        postAttachmentFileList.add(postAttachmentFile)
+    }
+}
