@@ -43,7 +43,7 @@ class PostQueryResolver : GraphQLQueryResolver, GraphQLMutationResolver {
 
         val post = Post(title = createPost.title, content = createPost.content)
 
-        val member = memberRepository.findBySeqIdEquals(createPost.seqId)
+        val member = memberRepository.findBySeqIdEquals(createPost.memberSeqId)
                 ?: throw CustomException(NoteErrorCode.UNAUTHORIZED_USER)
 
         post.member = member

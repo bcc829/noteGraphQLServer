@@ -13,9 +13,9 @@ import javax.persistence.*
 open class BaseEntity: Serializable {
 
     @CreatedDate
-    var regDate: Date? = null
+    open var regDate: Date? = null
 
     @LastModifiedDate
-    var updDate: Date? = null
+    open var updDate: Date? = null
 
 }

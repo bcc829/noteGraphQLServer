@@ -15,8 +15,3 @@ fun main(args: Array<String>) {
 
 	runApplication<ResourceApplication>(*args)
 }
-
-@Bean
-fun openFilter(): Filter {
-	return OpenEntityManagerInViewFilter()
-}

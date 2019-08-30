@@ -3,5 +3,5 @@ package com.note.resource.model.vo
 data class CreatePostInput (
         val title: String,
         val content: String,
-        val seqId: Long
+        val memberSeqId: Long
 )

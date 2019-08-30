@@ -1,8 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+
+
 plugins {
 	val kotlinVersion = "1.3.40"
-	id("org.springframework.boot") version "2.1.6.RELEASE"
+	val springBootVersion = "2.1.6.RELEASE"
+
+	id("org.springframework.boot") version springBootVersion
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	kotlin("jvm") version kotlinVersion
 	kotlin("plugin.spring") version kotlinVersion
@@ -12,15 +16,15 @@ plugins {
 	id("idea")
 }
 
+val queryDslVersion = "4.1.3"
+val oAuth2AutoConfigureVersion = "2.1.7.RELEASE"
+
 group = "com.note"
 version = "0.0.1-SNAPSHOT"
 java.sourceCompatibility = JavaVersion.VERSION_1_8
 
-val queryDslVersion = "4.1.3"
-
 allOpen {
 	annotation ("javax.persistence.Entity")
-	annotation ("javax.persistence.MappedSuperclass")
 }
 
 repositories {
@@ -34,8 +38,8 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-	//	implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
-	//	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.boot:spring-boot-starter-security")
+	implementation("org.springframework.security.oauth.boot:spring-security-oauth2-autoconfigure:$oAuth2AutoConfigureVersion")
 
 	//QueryDSL
 	//---------------------------------------------------------------------------------------------------

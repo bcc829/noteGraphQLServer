@@ -1,17 +1,21 @@
-#spring:
-#  datasource:
-
-#  jpa:
-#    open-in-view: false
-#    show-sql: true
-#    properties:
-#      hibernate:
-#        temp:
-#          use_jdbc_metadata_defaults: false
-
+spring:
+  jpa:
+    show-sql: true
+    open-in-view: false
+    properties:
+      hibernate:
+        format_sql: true
+        temp:
+          use_jdbc_metadata_defaults: false
 server:
-  port: 8080
+  port: 8081
 
+graphql:
+  tools:
+    schema-location-pattern: "**/*.graphqls"
+    # Enable or disable the introspection query. Disabling it puts your server in contravention of the GraphQL
+    # specification and expectations of most clients, so use this option with caution
+    introspection-enabled: true
 
 ---
 spring:
@@ -26,38 +30,34 @@ spring:
     url: jdbc:postgresql://localhost:5432/springdata
     username: keesun
     password: pass
-    initialize: false
   jpa:
-    show-sql: true
-    open-in-view: false
-    properties:
-      hibernate:
-        format_sql: true
-        temp:
-          use_jdbc_metadata_defaults: false
-
     hibernate:
       ddl-auto: create
-
-
-logging:
-  level:
-    root: info
-  path: C:\log
-  level.org.hibernate:
-    SQL: DEBUG
-
-graphql:
-  tools:
-    schema-location-pattern: "**/*.graphqls"
-    # Enable or disable the introspection query. Disabling it puts your server in contravention of the GraphQL
-    # specification and expectations of most clients, so use this option with caution
-    introspection-enabled: true
 
 ---
 spring:
   profiles: staging
 
+  datasource:
+    #    url: jdbc:h2:file:~/testdb;DB_CLOSE_ON_EXIT=FALSE;IFEXISTS=FALSE;DB_CLOSE_DELAY=-1;FILE_LOCK=NO
+    #    driver-class-name: org.h2.Driver
+    #    username: sa
+    #    password:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/springdata
+    username: keesun
+    password: pass
+  jpa:
+    hibernate:
+      ddl-auto: create
+security:
+  oauth2:
+    client:
+      client-id: testId3
+      client-secret: testScecret3
+    resource:
+      token-info-uri: http://localhost:8080/oauth/check_token
 ---
 spring:
   profiles: production
