@@ -34,6 +34,7 @@ repositories {
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-aop")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
@@ -54,6 +55,12 @@ dependencies {
 	implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:5.10.0")
 	implementation("com.graphql-java-kickstart:voyager-spring-boot-starter:5.10.0")
 	implementation("com.zhokhov.graphql:graphql-datetime-spring-boot-starter:1.5.1")
+	//---------------------------------------------------------------------------------------------------
+
+	// AspectJ
+	//---------------------------------------------------------------------------------------------------
+    implementation("org.aspectj:aspectjrt:1.9.4")
+	implementation("org.aspectj:aspectjweaver:1.9.4")
 	//---------------------------------------------------------------------------------------------------
 
 //	runtimeOnly("com.h2database:h2:1.4.199")
