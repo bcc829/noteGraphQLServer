@@ -5,7 +5,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	val kotlinVersion = "1.3.40"
 	val springBootVersion = "2.1.6.RELEASE"
-
 	id("org.springframework.boot") version springBootVersion
 	id("io.spring.dependency-management") version "1.0.7.RELEASE"
 	kotlin("jvm") version kotlinVersion
@@ -55,6 +54,7 @@ dependencies {
 	implementation("com.graphql-java-kickstart:graphiql-spring-boot-starter:5.10.0")
 	implementation("com.graphql-java-kickstart:voyager-spring-boot-starter:5.10.0")
 	implementation("com.zhokhov.graphql:graphql-datetime-spring-boot-starter:1.5.1")
+	implementation("com.graphql-java-kickstart:altair-spring-boot-starter:5.10.0")
 	//---------------------------------------------------------------------------------------------------
 
 	// AspectJ
