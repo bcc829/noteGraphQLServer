@@ -20,9 +20,14 @@ class OperationLogging {
     @Around(value = "execution(* graphql.servlet.core.GraphQLQueryInvoker.query(..)) && args(singleInvocationInput)")
     fun operationNameLogging(joinPoint: ProceedingJoinPoint, singleInvocationInput: GraphQLSingleInvocationInput): Any? {
 
-        val document = graphqlParser.parseDocument(singleInvocationInput.executionInput.query)
+        val operationName = if(singleInvocationInput.executionInput.operationName == null){
+            val document = graphqlParser.parseDocument(singleInvocationInput.executionInput.query)
 
-        logger.info("OperationName -> ${(document.definitions[0] as OperationDefinition).name}")
+            (document.definitions[0] as OperationDefinition).name
+
+        } else singleInvocationInput.executionInput.operationName
+
+        logger.info("OperationName -> $operationName")
 
         val beforeTimeStamp = System.currentTimeMillis()
 
